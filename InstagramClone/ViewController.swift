@@ -9,11 +9,12 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(handlePlusPhoto), for: .touchUpInside)
         return button
     }()
     
@@ -60,6 +61,29 @@ class ViewController: UIViewController {
         return button
     }()
     
+    @objc func handlePlusPhoto() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            plusPhotoButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            plusPhotoButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.width / 2
+        plusPhotoButton.layer.masksToBounds = true
+        plusPhotoButton.layer.borderColor = UIColor.darkGray.cgColor
+        plusPhotoButton.layer.borderWidth = 2
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func handleTextInputChange() {
         let isFormValid = emailTextField.text?.count ?? 0 > 0 && usernameTextField.text?.count ?? 0 > 0 && passwordTextField.text?.count ?? 0 > 0
         
@@ -85,18 +109,50 @@ class ViewController: UIViewController {
             
             print("Id of the new user: \(result?.user.uid ?? "")")
             
-            guard let uid = result?.user.uid else { return }
-            let usernameValue = ["username": username]
-            let values = [uid: usernameValue]
+            guard let image = self.plusPhotoButton.imageView?.image else { return }
+            guard let imageUpload = image.jpegData(compressionQuality: 0.3) else { return }
             
-            Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+            let fileName = NSUUID().uuidString
+            let storageRef = Storage.storage().reference().child("profile_images").child(fileName)
+            storageRef.putData(imageUpload, metadata: nil, completion: { (metadata, error) in
+                
                 if let error = error {
-                    print("Failed to save user info in DB: ", error)
+                    print("Failed to upload error", error)
                     return
                 }
                 
-                print("Successfully added user info in DB")
+                storageRef.downloadURL(completion: { (downloadUrl, error) in
+                    if let error = error {
+                        print("Failed to retrieve download url", error)
+                        return
+                    }
+                    
+                    guard let profileImageUrl = downloadUrl?.absoluteString else { return }
+                    print("Successfully uploaded profile image:", profileImageUrl)
+                    
+                    guard let uid = result?.user.uid else { return }
+                    
+                    let dictionatyValues = [
+                        "username": username,
+                        "profileImageUrl": profileImageUrl
+                        ] as [String : Any]
+                    
+                    let values = [uid: dictionatyValues]
+                    
+                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                        if let error = error {
+                            print("Failed to save user info in DB: ", error)
+                            return
+                        }
+                        
+                        print("Successfully added user info in DB")
+                    })
+
+                    
+                })
+                
             })
+            
             
         }
     }
