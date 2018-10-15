@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EC3BB8502165740900FED320 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC3BB84F2165740900FED320 /* GoogleService-Info.plist */; };
+		EC9C2E942173EFBA00473161 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9C2E932173EFBA00473161 /* MainTabBarController.swift */; };
+		EC9C2E962173F05B00473161 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9C2E952173F05B00473161 /* UserProfileController.swift */; };
 		ECD8925F21623DCA005777FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD8925E21623DCA005777FE /* AppDelegate.swift */; };
 		ECD8926121623DCA005777FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD8926021623DCA005777FE /* ViewController.swift */; };
 		ECD8926421623DCA005777FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECD8926221623DCA005777FE /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 		5CA54C20269B7BB8614F6290 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E7786EDD84A7EE475FBB31 /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 		EC3BB84F2165740900FED320 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EC9C2E932173EFBA00473161 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		EC9C2E952173F05B00473161 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		ECD8925B21623DCA005777FE /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD8925E21623DCA005777FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECD8926021623DCA005777FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				ECD8926721623DCB005777FE /* LaunchScreen.storyboard */,
 				ECD8926A21623DCB005777FE /* Info.plist */,
 				EC3BB84F2165740900FED320 /* GoogleService-Info.plist */,
+				EC9C2E932173EFBA00473161 /* MainTabBarController.swift */,
+				EC9C2E952173F05B00473161 /* UserProfileController.swift */,
 			);
 			path = InstagramClone;
 			sourceTree = "<group>";
@@ -223,6 +229,8 @@
 			files = (
 				ECD8926121623DCA005777FE /* ViewController.swift in Sources */,
 				ECE0A8312163BBA900277E4E /* Extensions.swift in Sources */,
+				EC9C2E942173EFBA00473161 /* MainTabBarController.swift in Sources */,
+				EC9C2E962173F05B00473161 /* UserProfileController.swift in Sources */,
 				ECD8925F21623DCA005777FE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
